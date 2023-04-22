@@ -17,7 +17,7 @@ class PokemonListController {
     }
 
     @GetMapping
-    List<PokeApiListItemResult> getPokemonItemList() {
+    List<PokemonListItemEntity> getPokemonItemList() {
         return pokemonListService.getPokemonItemList();
     }
 }
