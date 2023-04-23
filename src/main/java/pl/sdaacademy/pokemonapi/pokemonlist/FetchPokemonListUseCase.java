@@ -28,7 +28,10 @@ class FetchPokemonListUseCase {
         int offset = 0;
         do {
             result = pokeApiListNetworkRepository.fetchPokemonListResult(limit, offset);
-            results.addAll(result.getResults());
+            List<PokeApiListItemResult> _results = result.getResults();
+            if (_results != null) {
+                results.addAll(result.getResults());
+            }
             offset += limit;
         } while (result.getNext() != null);
         List<PokemonListItemEntity> pokemonListItemEntities =
