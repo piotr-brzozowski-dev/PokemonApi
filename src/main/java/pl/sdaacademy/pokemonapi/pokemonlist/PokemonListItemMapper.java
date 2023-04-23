@@ -6,9 +6,12 @@ import org.springframework.stereotype.Component;
 class PokemonListItemMapper {
 
     PokemonListItemEntity toEntity(PokeApiListItemResult pokeApiListItemResult) {
+        String url = pokeApiListItemResult.getUrl();
+        String[] urlData = url.split("/");
+        Long id = Long.parseLong(urlData[urlData.length-1]);
         return new PokemonListItemEntity(
-                pokeApiListItemResult.getName(),
-                pokeApiListItemResult.getUrl()
+                id,
+                pokeApiListItemResult.getName()
         );
     }
 }
