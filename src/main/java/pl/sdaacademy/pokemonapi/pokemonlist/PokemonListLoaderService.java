@@ -34,4 +34,12 @@ class PokemonListLoaderService {
             }
         }
     }
+
+    /*
+    - jeśli nie ma elementów w repo to pobierz z use case
+    - jeśli elementy są w repo, pobierz informację o ilości elementów w repo sieciowy: \
+    jeśli liczby są różne, wyczyść bazę i pobierz z use case
+    - jeśli elementy są w repo, pobierz informację o ilości elementów w repo sieciowy: \
+    jeśli liczby są takie same, nie wykonuj żadnej operacji
+     */
 }
