@@ -10,6 +10,9 @@ public class PokemonDetailsEntity {
     private List<String> types;
     private List<String> abilities;
 
+    public PokemonDetailsEntity() {
+    }
+
     public PokemonDetailsEntity(int height, int weight, String image, List<String> types, List<String> abilities) {
         this.height = height;
         this.weight = weight;

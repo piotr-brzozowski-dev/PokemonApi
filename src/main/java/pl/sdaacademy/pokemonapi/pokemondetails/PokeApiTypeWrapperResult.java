@@ -38,6 +38,9 @@ class PokeApiTypeResult {
         this.url = url;
     }
 
+    public PokeApiTypeResult() {
+    }
+
     public String getName() {
         return name;
     }
