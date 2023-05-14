@@ -18,8 +18,8 @@ class PokeApiDetailsNetworkRepository {
         this.url = url;
     }
 
-    PokeApiDetailsResult fetchPokemonDetailsResult(String pokemonName) {
-        String fullUrl = String.format(url, pokemonName);
+    PokeApiDetailsResult fetchPokemonDetailsResult(Long pokemonId) {
+        String fullUrl = String.format(url, pokemonId);
         return restTemplate.getForObject(fullUrl, PokeApiDetailsResult.class);
     }
 }

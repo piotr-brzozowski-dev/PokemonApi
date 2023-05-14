@@ -1,6 +1,5 @@
 package pl.sdaacademy.pokemonapi.pokemondetails;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import pl.sdaacademy.pokemonapi.pokemonlist.PokemonListItemEntity;
 import pl.sdaacademy.pokemonapi.pokemonlist.PokemonListItemRepository;
@@ -9,21 +8,27 @@ import pl.sdaacademy.pokemonapi.pokemonlist.PokemonListItemRepository;
 class PokemonDetailsService {
 
     private final PokemonListItemRepository pokemonListItemRepository;
-    private final String url;
+    private final PokeApiDetailsNetworkRepository pokeApiDetailsNetworkRepository;
+    private final PokemonDetailsMapper pokemonDetailsMapper;
 
     PokemonDetailsService(
             PokemonListItemRepository pokemonListItemRepository,
-            @Value("${pokeapi.details.url}") String url
+            PokeApiDetailsNetworkRepository pokeApiDetailsNetworkRepository,
+            PokemonDetailsMapper pokemonDetailsMapper
     ) {
-        this.url = url;
+        this.pokeApiDetailsNetworkRepository = pokeApiDetailsNetworkRepository;
         this.pokemonListItemRepository = pokemonListItemRepository;
+        this.pokemonDetailsMapper = pokemonDetailsMapper;
     }
 
-    String getPokemonDetailsUrl(String pokemonName) {
+    PokemonDetailsEntity getPokemonDetailsUrl(String pokemonName) {
         PokemonListItemEntity pokemonListItemEntity =
                 pokemonListItemRepository.findByName(pokemonName)
                         .orElseThrow(() -> new NoPokemonFoundException(pokemonName));
-        return String.format(url, pokemonListItemEntity.getId());
+        PokeApiDetailsResult pokeApiDetailsResult =
+                pokeApiDetailsNetworkRepository
+                        .fetchPokemonDetailsResult(pokemonListItemEntity.getId());
+        return pokemonDetailsMapper.toEntity(pokeApiDetailsResult);
     }
 
 }
