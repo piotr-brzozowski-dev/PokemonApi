@@ -11,6 +11,17 @@ public class PokeApiDetailsResult {
 
     private PokeApiSpritesResult sprites;
 
+    public PokeApiDetailsResult() {
+    }
+
+    public PokeApiDetailsResult(List<PokeApiAbilityWrapperResult> abilities, int height, int weight, List<PokeApiTypeWrapperResult> types, PokeApiSpritesResult sprites) {
+        this.abilities = abilities;
+        this.height = height;
+        this.weight = weight;
+        this.types = types;
+        this.sprites = sprites;
+    }
+
     public List<PokeApiAbilityWrapperResult> getAbilities() {
         return abilities;
     }

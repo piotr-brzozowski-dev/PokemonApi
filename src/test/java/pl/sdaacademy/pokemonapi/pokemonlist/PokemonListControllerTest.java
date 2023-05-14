@@ -44,8 +44,8 @@ class PokemonListControllerTest {
         //when
         //then
         mockMvc.perform(MockMvcRequestBuilders.get("/pokemon/list")
-                .contentType(MediaType.APPLICATION_JSON)
-        )
+                        .contentType(MediaType.APPLICATION_JSON)
+                )
                 .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(2)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].id", equalTo(1)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].name", equalTo("Pikachu")))
@@ -62,8 +62,8 @@ class PokemonListControllerTest {
         //when
         //then
         mockMvc.perform(MockMvcRequestBuilders.get("/pokemon/list")
-                .contentType(MediaType.APPLICATION_JSON)
-        )
+                        .contentType(MediaType.APPLICATION_JSON)
+                )
                 .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(0)));
     }
 

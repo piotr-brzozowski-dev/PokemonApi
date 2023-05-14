@@ -4,6 +4,14 @@ public class PokeApiTypeWrapperResult {
     private int slot;
     private PokeApiTypeResult type;
 
+    public PokeApiTypeWrapperResult() {
+    }
+
+    public PokeApiTypeWrapperResult(int slot, PokeApiTypeResult type) {
+        this.slot = slot;
+        this.type = type;
+    }
+
     public int getSlot() {
         return slot;
     }
@@ -24,6 +32,11 @@ public class PokeApiTypeWrapperResult {
 class PokeApiTypeResult {
     private String name;
     private String url;
+
+    public PokeApiTypeResult(String name, String url) {
+        this.name = name;
+        this.url = url;
+    }
 
     public String getName() {
         return name;

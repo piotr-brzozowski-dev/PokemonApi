@@ -17,7 +17,7 @@ import pl.sdaacademy.pokemonapi.PokemonApiApplication;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-classes = PokemonApiApplication.class)
+        classes = PokemonApiApplication.class)
 @AutoConfigureMockMvc
 @AutoConfigureTestDatabase
 public class PokemonListControllerIntegrationTest {
@@ -34,7 +34,7 @@ public class PokemonListControllerIntegrationTest {
         //when
         //then
         mockMvc.perform(MockMvcRequestBuilders.get("/pokemon/list")
-                .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.not(Matchers.emptyArray())));
 
         Assertions.assertTrue(pokemonListItemRepository.count() != 0);

@@ -8,6 +8,15 @@ public class PokeApiAbilityWrapperResult {
     private boolean isHidden;
     private int slot;
 
+    public PokeApiAbilityWrapperResult(PokeApiAbilityResult ability, boolean isHidden, int slot) {
+        this.ability = ability;
+        this.isHidden = isHidden;
+        this.slot = slot;
+    }
+
+    public PokeApiAbilityWrapperResult() {
+    }
+
     public PokeApiAbilityResult getAbility() {
         return ability;
     }
@@ -36,6 +45,14 @@ public class PokeApiAbilityWrapperResult {
 class PokeApiAbilityResult {
     private String name;
     private String url;
+
+    public PokeApiAbilityResult() {
+    }
+
+    public PokeApiAbilityResult(String name, String url) {
+        this.name = name;
+        this.url = url;
+    }
 
     public String getName() {
         return name;
