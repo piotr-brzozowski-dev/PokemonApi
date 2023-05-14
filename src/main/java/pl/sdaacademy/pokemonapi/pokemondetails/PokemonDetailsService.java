@@ -5,8 +5,6 @@ import org.springframework.stereotype.Service;
 import pl.sdaacademy.pokemonapi.pokemonlist.PokemonListItemEntity;
 import pl.sdaacademy.pokemonapi.pokemonlist.PokemonListItemRepository;
 
-import java.util.NoSuchElementException;
-
 @Service
 class PokemonDetailsService {
 
@@ -24,7 +22,7 @@ class PokemonDetailsService {
     String getPokemonDetailsUrl(String pokemonName) {
         PokemonListItemEntity pokemonListItemEntity =
                 pokemonListItemRepository.findByName(pokemonName)
-                .orElseThrow(()->new NoPokemonFoundException(pokemonName));
+                        .orElseThrow(() -> new NoPokemonFoundException(pokemonName));
         return String.format(url, pokemonListItemEntity.getId());
     }
 
