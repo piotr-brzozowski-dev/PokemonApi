@@ -16,6 +16,7 @@ class PokemonDetailsMapperTest {
         PokemonDetailsMapper pokemonDetailsMapper = new PokemonDetailsMapper();
         PokeApiDetailsResult pokeApiDetailsResult = new PokeApiDetailsResult(
                 null,
+                "test",
                 200,
                 20,
                 null,
@@ -64,6 +65,7 @@ class PokemonDetailsMapperTest {
         );
         PokeApiDetailsResult pokeApiDetailsResult = new PokeApiDetailsResult(
                 abilities,
+                "test",
                 200,
                 20,
                 types,
@@ -74,6 +76,7 @@ class PokemonDetailsMapperTest {
 
         assertEquals(200, result.getHeight());
         assertEquals(20, result.getWeight());
+        assertEquals("test", result.getName());
         assertEquals("image1", result.getImage());
         assertEquals(Arrays.asList("test", "test1"), result.getAbilities());
         assertEquals(Arrays.asList("testtype", "testtype1"), result.getTypes());

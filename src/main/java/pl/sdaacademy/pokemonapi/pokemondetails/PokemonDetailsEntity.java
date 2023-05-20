@@ -3,6 +3,7 @@ package pl.sdaacademy.pokemonapi.pokemondetails;
 import java.util.List;
 
 public class PokemonDetailsEntity {
+    private String name;
     private int height;
     private int weight;
     private String image;
@@ -13,7 +14,8 @@ public class PokemonDetailsEntity {
     public PokemonDetailsEntity() {
     }
 
-    public PokemonDetailsEntity(int height, int weight, String image, List<String> types, List<String> abilities) {
+    public PokemonDetailsEntity(String name, int height, int weight, String image, List<String> types, List<String> abilities) {
+        this.name = name;
         this.height = height;
         this.weight = weight;
         this.image = image;
@@ -59,5 +61,13 @@ public class PokemonDetailsEntity {
 
     public void setAbilities(List<String> abilities) {
         this.abilities = abilities;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

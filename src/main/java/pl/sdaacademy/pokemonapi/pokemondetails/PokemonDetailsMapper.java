@@ -31,6 +31,7 @@ class PokemonDetailsMapper {
                     .toList();
         }
         return new PokemonDetailsEntity(
+                pokeApiDetailsResult.getName(),
                 pokeApiDetailsResult.getHeight(),
                 pokeApiDetailsResult.getWeight(),
                 image,

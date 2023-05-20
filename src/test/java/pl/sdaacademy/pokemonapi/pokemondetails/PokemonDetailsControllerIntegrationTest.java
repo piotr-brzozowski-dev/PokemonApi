@@ -38,6 +38,7 @@ class PokemonDetailsControllerIntegrationTest {
                         MockMvcRequestBuilders.get("/pokemon/details/" + pokemonName)
                                 .contentType(MediaType.APPLICATION_JSON)
                 )
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name", equalTo("bulbasaur")))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.height", equalTo(7)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.weight", equalTo(69)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.image", equalTo("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png")))
@@ -81,9 +82,11 @@ class PokemonDetailsControllerIntegrationTest {
                                 .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(2)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].name", equalTo("bulbasaur")))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].types", hasSize(2)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].types[0]", equalTo("grass")))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].types[1]", equalTo("poison")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].name", equalTo("pikachu")))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].types", hasSize(1)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].types[0]", equalTo("electric")));
     }
@@ -116,6 +119,7 @@ class PokemonDetailsControllerIntegrationTest {
                                 .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(1)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].name", equalTo("bulbasaur")))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].types", hasSize(2)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].types[0]", equalTo("grass")))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].types[1]", equalTo("poison")));
