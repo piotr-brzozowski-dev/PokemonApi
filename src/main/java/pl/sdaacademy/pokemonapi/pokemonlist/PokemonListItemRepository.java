@@ -6,5 +6,5 @@ import java.util.Optional;
 
 public interface PokemonListItemRepository extends JpaRepository<PokemonListItemEntity, Long> {
 
-    Optional<PokemonListItemEntity> findByName(String name);
+    Optional<PokemonListItemEntity> findByNameIgnoreCase(String name);
 }
