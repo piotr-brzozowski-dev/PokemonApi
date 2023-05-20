@@ -12,15 +12,19 @@ class PokemonDetailsService {
 
     private final PokemonListItemRepository pokemonListItemRepository;
     private final PokeApiDetailsNetworkRepository pokeApiDetailsNetworkRepository;
+
+    private final PokemonDetailsRepository pokemonDetailsRepository;
     private final PokemonDetailsMapper pokemonDetailsMapper;
 
     PokemonDetailsService(
             PokemonListItemRepository pokemonListItemRepository,
             PokeApiDetailsNetworkRepository pokeApiDetailsNetworkRepository,
+            PokemonDetailsRepository pokemonDetailsRepository,
             PokemonDetailsMapper pokemonDetailsMapper
     ) {
         this.pokeApiDetailsNetworkRepository = pokeApiDetailsNetworkRepository;
         this.pokemonListItemRepository = pokemonListItemRepository;
+        this.pokemonDetailsRepository = pokemonDetailsRepository;
         this.pokemonDetailsMapper = pokemonDetailsMapper;
     }
 
@@ -28,10 +32,15 @@ class PokemonDetailsService {
         PokemonListItemEntity pokemonListItemEntity =
                 pokemonListItemRepository.findByNameIgnoreCase(pokemonName)
                         .orElseThrow(() -> new NoPokemonFoundException(pokemonName));
-        PokeApiDetailsResult pokeApiDetailsResult =
-                pokeApiDetailsNetworkRepository
-                        .fetchPokemonDetailsResult(pokemonListItemEntity.getId());
-        return pokemonDetailsMapper.toEntity(pokeApiDetailsResult);
+
+        return pokemonDetailsRepository.findById(pokemonName)
+                .orElseGet(() -> {
+                    PokeApiDetailsResult pokeApiDetailsResult =
+                            pokeApiDetailsNetworkRepository
+                                    .fetchPokemonDetailsResult(pokemonListItemEntity.getId());
+                    PokemonDetailsEntity entity = pokemonDetailsMapper.toEntity(pokeApiDetailsResult);
+                    return pokemonDetailsRepository.save(entity);
+                });
     }
 
     List<PokemonDetailsEntity> getPokemonDetails(List<String> pokemonNames) {
