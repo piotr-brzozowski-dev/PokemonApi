@@ -1,6 +1,5 @@
-package pl.sdaacademy.pokemonapi.healtcheck;
+package pl.sdaacademy.pokemonapi.healtcheck.pokemondetails;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthContributor;
 import org.springframework.boot.actuate.health.HealthIndicator;
@@ -11,20 +10,20 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-@Component("pokemonlistdatabase")
-public class PokemonListDatabaseHealthCheck implements HealthIndicator, HealthContributor {
-    private final DataSource source;
+@Component("pokemondetailsdb")
+public class PokemonDetailsDatabaseHealthCheck implements HealthIndicator, HealthContributor {
 
-    @Autowired
-    public PokemonListDatabaseHealthCheck(DataSource source) {
-        this.source = source;
+    private final DataSource dataSource;
+
+    public PokemonDetailsDatabaseHealthCheck(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
     @Override
     public Health health() {
-        try (Connection connection = source.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             Statement statement = connection.createStatement();
-            statement.execute("SELECT COUNT(*) FROM pokemon_list_item_entity");
+            statement.execute("SELECT COUNT(*) FROM pokemon_details_entity");
         } catch (SQLException e) {
             return Health.down().build();
         }

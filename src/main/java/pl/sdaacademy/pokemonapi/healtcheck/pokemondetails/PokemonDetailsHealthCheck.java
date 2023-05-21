@@ -1,6 +1,5 @@
-package pl.sdaacademy.pokemonapi.healtcheck;
+package pl.sdaacademy.pokemonapi.healtcheck.pokemondetails;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.health.CompositeHealthContributor;
 import org.springframework.boot.actuate.health.HealthContributor;
 import org.springframework.boot.actuate.health.NamedContributor;
@@ -10,15 +9,15 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-@Component("pokemonlist")
-public class PokemonListHealthCheck implements CompositeHealthContributor {
+@Component("pokemondetails")
+public class PokemonDetailsHealthCheck implements CompositeHealthContributor {
 
     private final Map<String, HealthContributor> contributorMap = new LinkedHashMap<>();
 
-    @Autowired
-    public PokemonListHealthCheck(PokemonListDatabaseHealthCheck pokemonListDatabaseHealthCheck) {
-        contributorMap.put("pokemonlistdatabase", pokemonListDatabaseHealthCheck);
+    public PokemonDetailsHealthCheck(PokemonDetailsDatabaseHealthCheck pokemonDetailsDatabaseHealthCheck) {
+        contributorMap.put("pokemondetailsdb", pokemonDetailsDatabaseHealthCheck);
     }
+
 
     @Override
     public HealthContributor getContributor(String name) {
@@ -28,6 +27,7 @@ public class PokemonListHealthCheck implements CompositeHealthContributor {
     @Override
     public Iterator<NamedContributor<HealthContributor>> iterator() {
         return contributorMap.entrySet().stream()
-                .map((entry) -> NamedContributor.of(entry.getKey(), entry.getValue())).iterator();
+                .map(entry -> NamedContributor.of(entry.getKey(), entry.getValue()))
+                .iterator();
     }
 }
