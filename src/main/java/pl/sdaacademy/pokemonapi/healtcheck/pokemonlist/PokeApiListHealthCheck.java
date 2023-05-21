@@ -6,29 +6,30 @@ import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthContributor;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.HttpServerErrorException;
-import org.springframework.web.client.RestTemplate;
-import pl.sdaacademy.pokemonapi.pokemonlist.PokeApiListResult;
+
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.net.URL;
 
 @Component("pokeapilist")
 public class PokeApiListHealthCheck implements HealthIndicator, HealthContributor {
-
-    private final RestTemplate restTemplate;
     private final String url;
 
     @Autowired
-    public PokeApiListHealthCheck(RestTemplate restTemplate,
-                                  @Value("${pokeapi.url}") String url) {
-        this.restTemplate = restTemplate;
+    public PokeApiListHealthCheck(@Value("${pokeapi.url}") String url) {
         this.url = url;
     }
 
     @Override
     public Health health() {
-        try {
-            restTemplate.getForObject(String.format(url, 0, 1), PokeApiListResult.class);
-        } catch (HttpServerErrorException e) {
-            Health.down().build();
+        try(Socket socket = new Socket()) {
+            socket.connect(new InetSocketAddress(
+                    new URL(String.format(url, 0, 1)).getHost()
+                    , 80));
+        } catch (Exception e) {
+            return Health.down()
+                    .withDetail("error", e.toString())
+                    .build();
         }
         return Health.up().build();
     }
