@@ -5,6 +5,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import pl.sdaacademy.pokemonapi.user.UserRole;
 import pl.sdaacademy.pokemonapi.user.UserService;
 
 @Configuration
@@ -19,7 +20,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/pokemon/details/**").authenticated()
+                .antMatchers("/pokemon/details/**").hasAuthority(UserRole.USER.name())
                 .antMatchers(HttpMethod.POST, "/users/**").permitAll()
                 .antMatchers("/pokemon/list").permitAll()
                 .and()

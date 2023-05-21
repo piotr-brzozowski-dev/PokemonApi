@@ -12,6 +12,8 @@ public class UserEntity {
     private String name;
     private String password;
 
+    private UserRole role = UserRole.NOT_VERIFIED;
+
     public Integer getId() {
         return id;
     }
@@ -34,5 +36,13 @@ public class UserEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
     }
 }

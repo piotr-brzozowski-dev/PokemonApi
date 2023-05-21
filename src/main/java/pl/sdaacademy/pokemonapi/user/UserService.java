@@ -1,5 +1,6 @@
 package pl.sdaacademy.pokemonapi.user;
 
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -7,7 +8,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
+import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -28,7 +30,13 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByName(username)
-                .map(user -> new User(user.getName(), user.getPassword(), Collections.emptyList()))
+                .map(user ->
+                        new User(
+                                user.getName(),
+                                user.getPassword(),
+                                List.of(new SimpleGrantedAuthority(user.getRole().name()))
+                        )
+                )
                 .orElseThrow(() -> new UsernameNotFoundException(username));
     }
 }
