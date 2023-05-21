@@ -5,6 +5,7 @@ import org.springframework.boot.actuate.health.CompositeHealthContributor;
 import org.springframework.boot.actuate.health.HealthContributor;
 import org.springframework.boot.actuate.health.NamedContributor;
 import org.springframework.stereotype.Component;
+import pl.sdaacademy.pokemonapi.healtcheck.PokeApiHealthCheck;
 
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -18,10 +19,10 @@ public class PokemonListHealthCheck implements CompositeHealthContributor {
     @Autowired
     public PokemonListHealthCheck(
             PokemonListDatabaseHealthCheck pokemonListDatabaseHealthCheck,
-            PokeApiListHealthCheck pokeApiListHealthCheck
+            PokeApiHealthCheck pokeApiHealthCheck
     ) {
         contributorMap.put("pokemonlistdb", pokemonListDatabaseHealthCheck);
-        contributorMap.put("pokeapilist", pokeApiListHealthCheck);
+        contributorMap.put("pokeapi", pokeApiHealthCheck);
     }
 
     @Override

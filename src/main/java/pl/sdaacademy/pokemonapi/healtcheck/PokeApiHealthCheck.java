@@ -1,4 +1,4 @@
-package pl.sdaacademy.pokemonapi.healtcheck.pokemonlist;
+package pl.sdaacademy.pokemonapi.healtcheck;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,17 +12,17 @@ import java.net.Socket;
 import java.net.URL;
 
 @Component("pokeapilist")
-public class PokeApiListHealthCheck implements HealthIndicator, HealthContributor {
+public class PokeApiHealthCheck implements HealthIndicator, HealthContributor {
     private final String url;
 
     @Autowired
-    public PokeApiListHealthCheck(@Value("${pokeapi.url}") String url) {
+    public PokeApiHealthCheck(@Value("${pokeapi.url}") String url) {
         this.url = url;
     }
 
     @Override
     public Health health() {
-        try(Socket socket = new Socket()) {
+        try (Socket socket = new Socket()) {
             socket.connect(new InetSocketAddress(
                     new URL(String.format(url, 0, 1)).getHost()
                     , 80));

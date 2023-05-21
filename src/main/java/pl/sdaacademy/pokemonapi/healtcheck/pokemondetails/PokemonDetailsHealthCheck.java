@@ -4,6 +4,7 @@ import org.springframework.boot.actuate.health.CompositeHealthContributor;
 import org.springframework.boot.actuate.health.HealthContributor;
 import org.springframework.boot.actuate.health.NamedContributor;
 import org.springframework.stereotype.Component;
+import pl.sdaacademy.pokemonapi.healtcheck.PokeApiHealthCheck;
 
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -14,8 +15,13 @@ public class PokemonDetailsHealthCheck implements CompositeHealthContributor {
 
     private final Map<String, HealthContributor> contributorMap = new LinkedHashMap<>();
 
-    public PokemonDetailsHealthCheck(PokemonDetailsDatabaseHealthCheck pokemonDetailsDatabaseHealthCheck) {
+    public PokemonDetailsHealthCheck(
+            PokemonDetailsDatabaseHealthCheck pokemonDetailsDatabaseHealthCheck,
+            PokeApiHealthCheck pokeApiHealthCheck
+    ) {
         contributorMap.put("pokemondetailsdb", pokemonDetailsDatabaseHealthCheck);
+        contributorMap.put("pokeapi", pokeApiHealthCheck);
+
     }
 
 
